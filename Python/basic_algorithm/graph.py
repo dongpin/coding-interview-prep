@@ -2,20 +2,28 @@
     Graph
 """
 
+from collections import deque
+
 # Graph representations - adjacent list
+
+
 class Graph:
     def __init__(self):
         self.graph = {}
+
     def add_edge(self, u, v):
         if u in self.graph:
             self.graph[u].append(v)
         else:
             self.graph[u] = [v]
+
     def add_vertex(self, u):
         if u not in self.graph:
             self.graph[u] = []
 
 # Graph Traverse
+
+
 def dfs(graph):
     def dfs_helper(graph, u, visited, res):
         res.append(u)
@@ -32,6 +40,7 @@ def dfs(graph):
             dfs_helper(graph, u, visited, res)
     return res
 
+
 def dfs_iterative(graph):
     visited = set()
     stack = []
@@ -45,22 +54,23 @@ def dfs_iterative(graph):
                     visited.add(cur)
                     res.append(cur)
                 if cur in graph:
-                    # add adjacent vertex in reverse order 
+                    # add adjacent vertex in reverse order
                     # to maintain the same sequence as recursive approach
                     for v in graph[cur][::-1]:
                         if v not in visited:
                             stack.append(v)
     return res
 
+
 def bfs(graph):
     visited = set()
-    queue = []
+    queue = deque()
     res = []
     for u in graph:
         if u not in visited:
             queue.append(u)
             while queue:
-                cur = queue.pop(0)
+                cur = queue.popleft()
                 if cur not in visited:
                     visited.add(cur)
                     res.append(cur)
@@ -71,6 +81,8 @@ def bfs(graph):
     return res
 
 # Topological sort
+
+
 def topological_sort(graph):
     def topo_helper(graph, u, visited, res):
         visited.add(u)

@@ -23,12 +23,15 @@ def game_of_life(board):
                 r = (row + neighbor[0])
                 c = (col + neighbor[1])
 
-                # Check the validity of the neighboring cell and if it was originally a live cell.
-                if (r < rows and r >= 0) and (c < cols and c >= 0) and abs(board[r][c]) == 1:
+                # Check the validity of the neighboring cell and if it was
+                # originally a live cell.
+                if (r < rows and r >= 0) and (
+                        c < cols and c >= 0) and abs(board[r][c]) == 1:
                     live_neighbors += 1
 
             # Rule 1 or Rule 3
-            if board[row][col] == 1 and (live_neighbors < 2 or live_neighbors > 3):
+            if board[row][col] == 1 and (
+                    live_neighbors < 2 or live_neighbors > 3):
                 # -1 signifies the cell is now dead but originally was live.
                 board[row][col] = -1
             # Rule 4

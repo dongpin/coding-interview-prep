@@ -1,12 +1,10 @@
-import unittest
+from python.problems.lc633_sum_of_sq_numbers import judge
+from python.problems.lc680_valid_palindrome_II import valid_palindrome
 
-from Python.Problems.lc633_sum_of_sq_numbers import *
-from Python.Problems.lc680_valid_palindrome_II import *
 
-# 633
 def test_lc633():
-    assert judge(5) == True
+    assert judge(5)
 
-# 680
+
 def test_valid_palindrome():
-    assert valid_palindrome("abca") == True
+    assert valid_palindrome("abca")

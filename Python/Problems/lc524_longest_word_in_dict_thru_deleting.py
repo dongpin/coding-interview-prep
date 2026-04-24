@@ -24,5 +24,3 @@ def find_longest_word(s, d):
         if is_subseq(s, d[i]):
             result = d[i]
     return result
-
-    

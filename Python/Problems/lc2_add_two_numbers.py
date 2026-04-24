@@ -1,9 +1,10 @@
 # 2. Add Two Numbers
 
-class ListNode(object):
+class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
+
 
 def add_two_numbers(l1, l2):
     """

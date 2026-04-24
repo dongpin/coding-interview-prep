@@ -10,7 +10,7 @@ def longest_substring_without_repeating_chars(s):
         if s[j] not in chars:
             chars.add(s[j])
             j += 1
-            result = max(result, j-i)
+            result = max(result, j - i)
         else:
             chars.remove(s[i])
             i += 1

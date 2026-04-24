@@ -1,14 +1,13 @@
-import unittest
+from python.basic_algorithm.trie import Trie
 
-from Python.BasicAlgorithm.Trie import Trie
 
 def test_trie():
     trie = Trie()
     trie.build_trie(['add', 'new', 'slk', 'above'])
-    assert trie.search('add') == True
-    assert trie.search('ADD') == False
-    assert trie.search('ad') == False
-    assert trie.search('addd') == False
-    assert trie.search('') == False
+    assert trie.search('add')
+    assert not trie.search('ADD')
+    assert not trie.search('ad')
+    assert not trie.search('addd')
+    assert not trie.search('')
     trie.add('cup')
-    assert trie.search('cup') == True
+    assert trie.search('cup')

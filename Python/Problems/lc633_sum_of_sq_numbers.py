@@ -2,6 +2,7 @@
 
 from math import sqrt
 
+
 def judge(c):
     i, j = 0, int(sqrt(c))
     while i <= j:

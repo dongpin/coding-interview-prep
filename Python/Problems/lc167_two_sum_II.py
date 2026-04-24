@@ -3,8 +3,8 @@
 def two_sum(nums, target):
     if not nums:
         return None
-    
-    i, j = 0, len(nums)-1
+
+    i, j = 0, len(nums) - 1
     while i < j:
         s = nums[i] + nums[j]
         if s == target:

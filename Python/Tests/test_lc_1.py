@@ -1,13 +1,11 @@
-import unittest
-
-from Python.Problems.lc2_add_two_numbers import *
-from Python.Problems.lc3_longest_substring_without_repeating_chars import *
-from Python.Problems.lc5_longest_palindromic_substr import *
-from Python.Problems.lc32_longest_valid_parentheses import *
-from Python.Problems.lc56_merge_intervals import *
-from Python.Problems.lc44_wildcard_matching import *
-
-# 2
+from python.problems.lc2_add_two_numbers import ListNode, add_two_numbers
+from python.problems.lc3_longest_substring_without_repeating_chars import (
+    longest_substring_without_repeating_chars,
+)
+from python.problems.lc5_longest_palindromic_substr import longest_palindrome
+from python.problems.lc32_longest_valid_parentheses import find_longest_valid_parenthese
+from python.problems.lc44_wildcard_matching import is_wildcard_match
+from python.problems.lc56_merge_intervals import merge
 
 
 def test_add_two_nums():
@@ -22,9 +20,7 @@ def test_add_two_nums():
     assert result.val == 7
     assert result.next.val == 0
     assert result.next.next.val == 8
-    assert result.next.next.next == None
-
-# 3
+    assert result.next.next.next is None
 
 
 def test_longest_substr_without_repeating_chars():
@@ -32,29 +28,22 @@ def test_longest_substr_without_repeating_chars():
     assert longest_substring_without_repeating_chars("bbbbb") == 1
     assert longest_substring_without_repeating_chars("pwwkew") == 3
 
-# 5
+
 def test_longest_palindromic_substr():
     assert longest_palindrome("babad") == "aba"
     assert longest_palindrome("cbbd") == "bb"
-
-# 32
 
 
 def test_longest_parentheses():
     assert find_longest_valid_parenthese(")()())") == 4
 
-# 44
-
 
 def test_wildcard_matching():
-    assert is_wildcard_match("aa", "*") == True
-    assert is_wildcard_match("cb", "?a") == False
-    assert is_wildcard_match("adceb", "*a*b") == True
-    assert is_wildcard_match("acdcb", "a*c?b") == False
-
-# 56
+    assert is_wildcard_match("aa", "*")
+    assert not is_wildcard_match("cb", "?a")
+    assert is_wildcard_match("adceb", "*a*b")
+    assert not is_wildcard_match("acdcb", "a*c?b")
 
 
 def test_merge_intervals():
-    assert merge([[1, 3], [2, 6], [8, 10], [15, 18]]) == [
-        [1, 6], [8, 10], [15, 18]]
+    assert merge([[1, 3], [2, 6], [8, 10], [15, 18]]) == [[1, 6], [8, 10], [15, 18]]

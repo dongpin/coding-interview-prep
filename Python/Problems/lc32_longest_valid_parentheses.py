@@ -5,7 +5,7 @@ def find_longest_valid_parenthese(s):
     :type s: str
     :rtype: int
     """
-        
+
     result = 0
     stack = []
     for i, v in enumerate(s):
@@ -15,9 +15,9 @@ def find_longest_valid_parenthese(s):
             if stack and s[stack[-1]] == '(':
                 stack.pop()
                 if stack:
-                    result = max(result, i-stack[-1])
+                    result = max(result, i - stack[-1])
                 else:
-                    result = max(result, i+1)
+                    result = max(result, i + 1)
             else:
                 stack.append(i)
 

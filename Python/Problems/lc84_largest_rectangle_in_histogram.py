@@ -1,9 +1,9 @@
 # 84. Largest Rectangle in Histogram
 
 def largest_rectangle(heights):
-    
+
     result = 0
-    
+
     # append dummy build in the end
     # in order to pop up all building in the end
     heights.append(0)
@@ -15,7 +15,7 @@ def largest_rectangle(heights):
             h = heights[stack.pop()]
             # remove 2 edges
             w = i - stack[-1] - 1
-            result = max(result, h*w)
+            result = max(result, h * w)
         stack.append(i)
-    # heights.pop()
+    heights.pop()
     return result

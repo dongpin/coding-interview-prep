@@ -2,22 +2,25 @@
     Tree
 """
 
-from collections import namedtuple
+from collections import namedtuple, deque
+
 
 class TreeNode:
     def __init__(self, data):
         self.data = data
         self.left = None
         self.right = None
-    
+
     def __str__(self):
         return str(self.data)
 
 # Binary Tree
+
+
 class BinaryTree:
     def __init__(self, root=None):
         self.root = root
-    
+
     # Height of root node is number of edges from bottom
     # Depth of root node is 0
     def height(self):
@@ -30,21 +33,21 @@ class BinaryTree:
     def height_iterative(self):
         if not self.root:
             return 0
-        queue = [self.root]
+        queue = deque([self.root])
         height = 0
         while queue:
             size = len(queue)
             while size:
                 size -= 1
-                current = queue.pop(0)
+                current = queue.popleft()
                 if current.left:
                     queue.append(current.left)
                 if current.right:
                     queue.append(current.right)
             height += 1
-        return height 
-    
-    # Approach 1: recursively check if comply with bst property 
+        return height
+
+    # Approach 1: recursively check if comply with bst property
     # Approach 2: inorder traversal
     def is_bst(self):
         def is_bst_helper(node, low, high):
@@ -55,23 +58,25 @@ class BinaryTree:
             return is_bst_helper(node.left, low, node.data) \
                 and is_bst_helper(node.right, node.data, high)
         return is_bst_helper(self.root, float('-inf'), float('inf'))
-    
+
     def is_bst_inorder(self):
-        prev = None
+        prev = [None]
+
         def inorder(node):
             if node:
-                if inorder(node.left) == False:
+                if not inorder(node.left):
                     return False
-                if not prev and node.data < prev:
+                if prev[0] is not None and node.data <= prev[0]:
                     return False
-                prev = node.data
-                if inorder(node.right) == False:
+                prev[0] = node.data
+                if not inorder(node.right):
                     return False
             return True
         return inorder(self.root)
-    
+
     def is_balanced(self):
-        BalancedStatusWithHeight = namedtuple('BalancedStatusWithHeight', ('balanced', 'height'))
+        BalancedStatusWithHeight = namedtuple(
+            'BalancedStatusWithHeight', ('balanced', 'height'))
 
         def check_balanced(tree):
             if not tree:
@@ -82,12 +87,12 @@ class BinaryTree:
             right = check_balanced(tree.right)
             if not right.balanced:
                 return BalancedStatusWithHeight(False, 0)
-            
+
             is_balanced = abs(left.height - right.height) <= 1
             height = max(left.height, right.height) + 1
             return BalancedStatusWithHeight(is_balanced, height)
         return check_balanced(self.root).balanced
-    
+
     def is_symmetric(self):
         def check_symmetric(tree1, tree2):
             if not tree1 and not tree2:
@@ -101,14 +106,16 @@ class BinaryTree:
         return check_symmetric(self.root.left, self.root.right)
 
 # Binary Search Tree
+
+
 class BinarySearchTree(BinaryTree):
     def __init__(self):
-        pass
-    
+        super().__init__()
+
     def search(self, key):
         def search_helper(node, key):
             if not node:
-                return None 
+                return None
             if key == node.data:
                 return node
             elif key < node.data:
@@ -116,7 +123,7 @@ class BinarySearchTree(BinaryTree):
             else:
                 return search_helper(node.right, key)
         return search_helper(self.root, key)
-    
+
     def search_iterative(self, key):
         node = self.root
         while node:
@@ -127,7 +134,7 @@ class BinarySearchTree(BinaryTree):
             elif node.data > key:
                 node = node.left
         return None
-    
+
     def insert(self, data):
         def insert_helper(root, node):
             if root is None:
@@ -146,7 +153,7 @@ class BinarySearchTree(BinaryTree):
         insert_helper(self.root, node)
 
     def delete(self, key):
-        def delete_helper(root, node):
+        def delete_helper(root, key):
             if not root:
                 return None
             if key < root.data:
@@ -156,14 +163,10 @@ class BinarySearchTree(BinaryTree):
             else:
                 # only one child or no child
                 if not root.left:
-                    temp = root.right
-                    del root
-                    return temp
+                    return root.right
                 elif not root.right:
-                    temp = root.left
-                    del root
-                    return temp
-                
+                    return root.left
+
                 # has two children: get the inorder successor
                 current = root.right
                 while current.left:
@@ -171,52 +174,67 @@ class BinarySearchTree(BinaryTree):
                 root.data = current.data
                 root.right = delete_helper(root.right, current.data)
             return root
-        delete_helper(self.root, key)
+        self.root = delete_helper(self.root, key)
 
     def size(self):
         pass
-    
+
     def max(self):
         pass
-    
+
     def min(self):
         pass
 
-    # The most important points is, BFS starts visiting nodes from root 
-    # while DFS starts visiting nodes from leaves. 
-    # So if our problem is to search something that is more likely to closer to root, 
-    # we would prefer BFS. And if the target node is close to a leaf, we would prefer DFS.
+    # The most important points is, BFS starts visiting nodes from root
+    # while DFS starts visiting nodes from leaves.
+    # So if our problem is to search something that is more likely to closer to root,
+    # we would prefer BFS. And if the target node is close to a leaf, we would
+    # prefer DFS.
     def printAllLeaves(self):
         pass
 
     def printKthLevel(self, k):
         pass
-    
+
 # Self-balanced BST
+
+
 class SelfBalancingBST:
     pass
 
 # Red-Black Tree
+
+
 class RBTree(SelfBalancingBST):
     pass
 
 # AVL Tree
+
+
 class AVLTree(SelfBalancingBST):
     pass
 
 # Splay Tree
+
+
 class SplayTree(SelfBalancingBST):
     pass
 
 # 2-3 search trees
+
+
 class TwoThreeSearchTree:
     pass
 
 # Finger Tree https://zhuanlan.zhihu.com/p/30589105
+
+
 class FingerTree:
     pass
 
 # Segment Tree
+
+
 class SegementTreeNode:
     def __init__(self, start, end, value):
         self.start = start
@@ -225,18 +243,19 @@ class SegementTreeNode:
         self.left = None
         self.right = None
 
+
 class SegmentTree:
     def __init__(self, arr):
         self.arr = arr
-        self.root = self.build_tree(0, len(self.arr)-1)
+        self.root = self.build_tree(0, len(self.arr) - 1)
 
-    def build_tree(self, l, r):
-        if l == r:
-            return SegementTreeNode(l, r, self.arr[l])
-        mid = l + (r - l) // 2
-        left = self.build_tree(l, mid)
-        right = self.build_tree(mid+1, r)
-        root = SegementTreeNode(l, r, left.val + right.val)
+    def build_tree(self, lo, hi):
+        if lo == hi:
+            return SegementTreeNode(lo, hi, self.arr[lo])
+        mid = lo + (hi - lo) // 2
+        left = self.build_tree(lo, mid)
+        right = self.build_tree(mid + 1, hi)
+        root = SegementTreeNode(lo, hi, left.val + right.val)
         root.left, root.right = left, right
         return root
 
@@ -249,7 +268,8 @@ class SegmentTree:
         elif start > mid:
             return self._query(node.right, start, end)
         elif start <= mid and mid < end:
-            return self._query(node.left, start, mid) + self._query(node.right, mid+1, end)
+            return self._query(node.left, start, mid) + \
+                self._query(node.right, mid + 1, end)
         return 0
 
     def query(self, start, end):
@@ -259,7 +279,7 @@ class SegmentTree:
 
     def _update(self, i, diff, node):
         if i < node.start or i > node.end:
-           return
+            return
         node.val += diff
         if node.start == node.end == i:
             return
@@ -271,4 +291,3 @@ class SegmentTree:
 
 
 # Fenwick Tree and Binary Indexed Tree
-

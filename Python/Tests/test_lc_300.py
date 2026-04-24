@@ -1,7 +1,5 @@
-import unittest
+from python.problems.lc345_reverse_vowels_of_a_str import reverse_vowels
 
-from Python.Problems.lc345_reverse_vowels_of_a_str import *
 
-# 345
 def test_reverse_vowels():
     assert reverse_vowels("hello") == "holle"
